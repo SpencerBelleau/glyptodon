@@ -27,4 +27,4 @@ Scanning a file
 Other stuff
 -----------
 
-This isn't terribly good security, so don't use it on anything super important. The main reason it exists is to disguise the data as random noise which will fool certain steganographic detection.
+I have no real idea just how secure this is, so don't use it on anything super important. The main reason it exists is to disguise the data as random noise which will fool certain steganographic detection.
