@@ -4,6 +4,8 @@ from helpers import *
 
 args = sys.argv
 fileList, pathList = createFileList(args[1])
+print(fileList)
+print(pathList)
 #print(fileList)
 #print(pathList)
 key = setupKey(args[2])
@@ -36,10 +38,7 @@ try:
 		path = pathList[i]
 		entryBytes = bytearray()
 		fnlength = len(file)
-		if(not os.path.isfile(args[1])):
-			size = os.path.getsize(os.path.join(args[1], path))
-		else:
-			size = os.path.getsize(path)
+		size = os.path.getsize(path)
 		size = breakDownSize(size)
 		nameList = list(file)
 		for i in range(len(nameList)):
@@ -53,12 +52,9 @@ try:
 	package.write(applyXOR(directoryBytes, key))
 	#----------------
 	#Append file content
-	for i in range(len(fileList)):
+	for i in range(len(pathList)):
 		file = pathList[i]
-		if(not os.path.isfile(args[1])):
-			data = bytearray(open(os.path.join(args[1], file), 'rb').read())
-		else:
-			data = bytearray(open(os.path.join(file), 'rb').read())
+		data = bytearray(open(os.path.join(file), 'rb').read())
 		data = applyXOR(data, key)
 		package.write(data)
 	print("Successfully wrote to: " + packageName)
