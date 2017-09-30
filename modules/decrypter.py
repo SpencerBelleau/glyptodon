@@ -43,7 +43,7 @@ while(dirIndex < len(directory)):
 	size = readSizeBytes(size)
 	if(not os.path.dirname(name) == ''):
 		os.makedirs(os.path.dirname(name), exist_ok=True)
-	print("Writing to:" + name)
+	print("Writing to: " + name)
 	output = open(name, 'wb')
 	MAX_BUFFER_SIZE = 65535
 	readCounter = 0
