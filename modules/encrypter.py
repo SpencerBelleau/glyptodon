@@ -3,16 +3,17 @@ from functions import *
 from helpers import *
 
 args = sys.argv
-fileList, pathList = createFileList(args[1])
-print(fileList)
-print(pathList)
-#print(fileList)
-#print(pathList)
-key = setupKey(args[2])
-#checksum-----------------------------------------
-csgen = hashlib.sha512()
 t = time.time()
 random.seed(t)
+
+fileList, pathList = createFileList(args[1])
+IVGen = hashlib.sha512()
+IVGen.update(str(random.getrandbits(1024)).encode('utf-8'))
+IV = IVGen.digest()
+debuglog("IV is " + str(IV))
+key = setupKey(args[2], IV)
+#checksum-----------------------------------------
+csgen = hashlib.sha512()
 csgen.update(str(random.getrandbits(1024)).encode('utf-8'))
 checksumP1 = csgen.digest()
 csgen = hashlib.sha512()
@@ -30,6 +31,7 @@ else:
 	packageName = "gly" + ''.join(packageName)
 try:
 	package = open(packageName, 'wb')
+	package.write(IV)
 	package.write(applyXOR(checksum, key))
 	#create directory
 	directoryBytes = bytearray()

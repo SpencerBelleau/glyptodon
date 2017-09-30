@@ -40,8 +40,8 @@ class SHK(object):
 	i = 0
 	def __init__(self, data): #data should be bytearray
 		data = bytearray(data)
-		h1 = data[:64]
-		h2 = data[64:]
+		h1 = data[:32]
+		h2 = data[32:]
 		sha512 = hashlib.sha512()
 		sha512.update(bytes(h1))
 		self.K = list(bytearray(sha512.digest()))
@@ -54,8 +54,8 @@ class SHK(object):
 		data = bytearray(self.K)
 		sha512.update(data)
 		data = bytearray(sha512.digest())
-		h1 = data[:64]
-		h2 = data[64:]
+		h1 = data[:32]
+		h2 = data[32:]
 		sha512 = hashlib.sha512()
 		sha512.update(bytes(h1))
 		self.K = list(bytearray(sha512.digest()))

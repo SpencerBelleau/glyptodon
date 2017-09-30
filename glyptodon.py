@@ -59,8 +59,6 @@ if(command[1] == "-e" or command[1] == "--encrypt"):
 		print("Invalid number of arguments. Type 'py " + args[0] + " " + command[1] + "' for help")
 	else:
 		command[1] = 'modules\\encrypter.py'
-		#command.append("-pad")
-		#print(command)
 		subprocess.call(command)
 		pass
 elif(command[1] == "-d" or command[1] == "--decrypt"):
@@ -70,19 +68,15 @@ elif(command[1] == "-d" or command[1] == "--decrypt"):
 		print("Invalid number of arguments. Type 'py " + args[0] + " " + command[1] + "' for help")
 	else:
 		command[1] = 'modules\\decrypter.py'
-		#command.append("+pad")
-		#print(command)
 		subprocess.call(command)
 		pass
 elif(command[1] == "-s" or command[1] == "--scan"):
 	if(len(args) == 2):
-		print(decHelp)
+		print(scnHelp)
 	elif(len(args) > 4 or len(args) == 3):
 		print("Invalid number of arguments. Type 'py " + args[0] + " " + command[1] + "' for help")
 	else:
 		command[1] = 'modules\\scanner.py'
-		#command.append("+pad")
-		#print(command)
 		subprocess.call(command)
 		pass
 else:

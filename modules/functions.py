@@ -37,10 +37,11 @@ def createFileList(fileArg):
 		sys.exit(-1)
 	return fileList, pathList
 
-def setupKey(keyArg):
+def setupKey(keyArg, IVarg):
 	kb = getKeyBytes(keyArg)
 	sha512 = hashlib.sha512()
 	sha512.update(kb)
+	sha512.update(IVarg)
 	kb = sha512.digest()
 	l = []
 	for i in kb:

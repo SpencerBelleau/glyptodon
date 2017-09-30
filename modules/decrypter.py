@@ -11,7 +11,9 @@ if(os.path.isfile(args[1])):
 	package = open(args[1], 'rb')
 else:
 	sys.exit(-1)
-key = setupKey(args[2])
+IV = package.read(64)
+debuglog("IV is " + str(IV))
+key = setupKey(args[2], IV)
 checksum = list(applyXOR(bytearray(package.read(128)), key))
 csgen = hashlib.sha512()
 csgen.update(bytearray(checksum[:64]))
@@ -19,6 +21,7 @@ check = csgen.digest()
 if(compareBytes(check, bytes(checksum[64:]))):
 	print("Checksum validated")
 else:
+	debuglog("Checksum not valid, check your key")
 	sys.exit(-1)
 #Create Directory
 dirLength = readSizeBytes(list(applyXOR(bytearray(package.read(4)), key)))
@@ -40,6 +43,7 @@ while(dirIndex < len(directory)):
 	size = readSizeBytes(size)
 	if(not os.path.dirname(name) == ''):
 		os.makedirs(os.path.dirname(name), exist_ok=True)
+	print("Writing to:" + name)
 	output = open(name, 'wb')
 	MAX_BUFFER_SIZE = 65535
 	readCounter = 0

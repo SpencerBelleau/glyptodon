@@ -11,9 +11,8 @@ if(os.path.isfile(args[1])):
 	package = open(args[1], 'rb')
 else:
 	sys.exit(-1)
-
-key = setupKey(args[2])
-
+IV = package.read(64)
+key = setupKey(args[2], IV)
 checksum = list(applyXOR(bytearray(package.read(128)), key))
 csgen = hashlib.sha512()
 csgen.update(bytearray(checksum[:64]))
